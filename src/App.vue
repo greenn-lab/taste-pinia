@@ -1,26 +1,17 @@
-<template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js App" />
-</template>
+<script setup>
+import { storeCounter } from '@/store/counter'
 
-<script>
-import HelloWorld from "./components/HelloWorld.vue";
+const counter = storeCounter()
 
-export default {
-  name: "App",
-  components: {
-    HelloWorld,
-  },
-};
+counter.$subscribe(function () {
+  console.error(arguments)
+})
 </script>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<template>
+  <h1>{{ counter.count }}</h1>
+  <div>
+    <button @click="counter.increment(3)">+</button>
+    <button @click="counter.increment(-1)">-</button>
+  </div>
+</template>
