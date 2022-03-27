@@ -19,9 +19,6 @@ import { defineStore } from 'pinia'
 
 export const useCounterStore = defineStore('counter', {
   state: () => ({ count: 4 }),
-  getters: {
-    double: (state) => state.count * 2
-  },
   actions: {
     increment(count) {
       this.count = this.count + (count || 1)
@@ -52,6 +49,29 @@ counter.$subscribe(function () {
   </div>
 </template>
 ```
-이렇게 사용이 직관적이라니 👍
+이렇게 사용이 직관적이라니 👍  
 
 ## Getters
+```javascript
+// store/counter.js
+import { defineStore } from 'pinia'
+
+export const useCounterStore = defineStore('counter', {
+  state: _ => ({ count: 4 }),
+  getters: {
+    double: state => state.count * 2
+  },
+  actions: {
+    increment(count) {
+      this.count = this.count + (count || 1)
+    }
+  }
+})
+```
+vuex 랑 똑같이 `{{ counter.double }}` 호출만하면 되죠.
+
+## watch
+`$subscribe` 는 state 변경을 감시하고, `$onAction` 은 action 발생할 때 이벤트로 호출되는 거네요.
+
+## plugin
+global state, 기본값등을 설정하는 용도라네요.
